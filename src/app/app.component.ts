@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+<<<<<<< HEAD
   selector: 'my-app', // to use me, do this in html <my-app>
   template: `
 
@@ -57,3 +58,9 @@ export class AppComponent  {
     this.region = region;
   }
  }
+=======
+  selector: 'my-app',
+  template: `<h1>Hello {{name}}</h1>`,
+})
+export class AppComponent  { name = 'Angular'; }
+>>>>>>> abf848628cf02fd1899ccd7b09eb7b3ffa78aa38
