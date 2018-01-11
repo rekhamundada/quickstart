@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Customer } from './model';
+import { DataService } from './data.service';
+import { LoggerService } from './logger.service';
+
 
 @Component({
   moduleId: module.id,
@@ -8,52 +11,23 @@ import { Customer } from './model';
   styleUrls: ['customer-list.component.css']
 })
 export class CustomerListComponent  {
-  customers: Customer[] = [
-    {
-      id: 1,
-      name: 'Alex Smith',
-      address: {
-        street: '123 Main Street',
-        city: 'Anytown',
-        state: 'California',
-        region: 'West'
-      }
-    },
-    {
-      id: 2,
-      name: 'Pierre Pasmal',
-      address: {
-        street: '456 Rue de Main',
-        city: 'Quebec City',
-        state: 'Quebec',
-        region: 'East'
-      }
-    },
-    {
-      id: 3,
-      name: 'Margarita Nadie',
-      address: {
-        street: '789 Calle Principal',
-        city: 'Guadalajara',
-        state: 'Jalisco',
-        region: 'South'
-      }
-    },
-    {
-      id: 4,
-      name: 'Katie O\'Leary',
-      address: {
-        street: '137 DeKoven Street',
-        city: 'Chicago',
-        state: 'Illinois',
-        region: 'Midwest'
-      }
-    },
-  ];
+  customers: Customer[] = [];
   customer: Customer;
-  regions   = ['East', 'Midwest', 'North', 'South', 'West'];
-    /* Create an array of states that includes previous states PLUS Illinois */
-    states    = ['California', 'Illinois', 'Jalisco', 'Quebec'];
 
-    showAddress = true;
+  constructor(private dataService: DataService , private loggerService: LoggerService ) { };
+
+  // lifecycle goes here
+  ngOnInit() {
+    this.loggerService.log('Getting Customers ...');
+    this.customers = this.dataService.getCustomers();
+  }
+
+  shift(increment: number) {
+    // shift the index of the current customer by the increment
+  let ix = this.customers.findIndex(c => c === this.customer) + increment;
+    // prevent index overflow
+  ix = Math.min(this.customers.length - 1, Math.max(0, ix));
+    // set next customer
+  this.customer = this.customers[ix];
+    }
  }

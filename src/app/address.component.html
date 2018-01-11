@@ -6,20 +6,24 @@
   </fieldset>
 
   <fieldset>
-    <label> City:<input [(ngModel)]="address.city"/></label>
+    <label>
+       City:<input [(ngModel)]="address.city"/>
+    </label>
   </fieldset>
 
   <fieldset>
-   <label> State:</label>
-   <select [(ngModel)]="address.state">
-      <option *ngFor= 'let state of states'>{{state}}</option>
-   </select>
+    <label> State:
+      <select [(ngModel)]="address.state">
+        <option *ngFor= 'let state of states'>{{state}}</option>
+      </select>
+    </label>
   </fieldset>
 
   <fieldset>
-    <label>Region:</label>
-    <select [(ngModel)]="address.region">
-      <option *ngFor= 'let region of regions'>{{region}}</option>
-  </select>
+    <label>Region:
+      <select [(ngModel)]="address.region">
+        <option *ngFor= 'let region of regions'>{{region}}</option>
+      </select>
+    </label>
   </fieldset>
 </div>

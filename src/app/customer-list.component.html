@@ -3,11 +3,14 @@
 <div>
   <ul>
     <li *ngFor = "let cust of customers"
-    [ngClass]="{selected: customer === cust}"
-    (click)="customer=cust" >{{cust.name}}</li>
+    (click)="customer=cust"
+    [ngClass]="{selected: customer === cust}" >{{cust.name}}</li>
   </ul>
 </div>
 
 <div *ngIf= "customer">
-  <customer-detail [customer]="customer"></customer-detail>
+  <customer-detail
+    [customer]="customer"
+    (shift)="shift($event)">
+</customer-detail>
 </div>
