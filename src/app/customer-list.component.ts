@@ -10,17 +10,39 @@ import { LoggerService } from './logger.service';
   templateUrl: 'customer-list.component.html',
   styleUrls: ['customer-list.component.css']
 })
-export class CustomerListComponent  {
+export class CustomerListComponent implements OnInit {
   customers: Customer[] = [];
   customer: Customer;
+  isBusy = false;
 
   constructor(private dataService: DataService , private loggerService: LoggerService ) { };
 
   // lifecycle goes here
   ngOnInit() {
-    this.loggerService.log('Getting Customers ...');
-    this.customers = this.dataService.getCustomers();
+    this.getCustomersP()
   }
+
+  getCustomersP(){
+    this.isBusy = true;
+    this.loggerService.log('Getting Customers ...');
+
+    this.dataService.getCustomersP()
+    .then(custs => {
+       this.isBusy = false;
+       this.customers = custs;
+     },(errorMsg: string) => {
+      this.isBusy = false;
+      //alert(errorMsg)
+     }
+    );
+
+    // this.dataService.getCustomers()
+    // .subscribe(custs => {
+    //    this.isBusy = false;
+    //    this.customers = custs;
+    //  });
+  }
+
 
   shift(increment: number) {
     // shift the index of the current customer by the increment
